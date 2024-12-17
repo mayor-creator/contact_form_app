@@ -6,3 +6,24 @@
   --color-white: hsl(0, 0%, 100%);
   --color-red: hsl(0, 66%, 54%);
 }
+
+/*custom fonts */
+@font-face {
+  font-family: "Karla";
+  font-style: normal;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  src: url("./assets/fonts/static/Karla-Regular.ttf");
+}
+
+@font-face {
+  font-family: "Karla";
+  font-style: normal;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  src: url("./assets/fonts/static/Karla-Bold.ttf");
+}
+
+body {
+  font-family: "Karla";
+}
