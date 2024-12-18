@@ -5,6 +5,8 @@ import { invalidEmail } from "../util/validate";
 import { invalidCheckBox } from "../util/validate";
 import { invalidRadioSelect } from "../util/validate";
 
+import styles from "./Form.module.css";
+
 export function Form() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -21,12 +23,13 @@ export function Form() {
 
   return (
     <>
-      <form onSubmit={onSubmit}>
-        <div className="name_container">
-          <div className="first_name_container">
+      <form onSubmit={onSubmit} className={styles.form_wrapper}>
+        <div className={styles.name_container}>
+          <div>
             <label htmlFor="firstName">
               First Name <span>*</span>
               <input
+                className={styles.inputField}
                 type="text"
                 name="firstName"
                 id="firstName"
@@ -41,10 +44,11 @@ export function Form() {
               )}
             </label>
           </div>
-          <div className="last_name_container">
+          <div>
             <label htmlFor="lastName">
               Last Name <span>*</span>
               <input
+                className={styles.inputField}
                 type="text"
                 name="lastName"
                 id="lastName"
@@ -60,10 +64,11 @@ export function Form() {
             </label>
           </div>
         </div>
-        <div className="email_address_container">
+        <div>
           <label htmlFor="email_address">
             Email Address <span>*</span>
             <input
+              className={styles.inputField}
               type="email"
               name="emailAddress"
               id="emailAddress"
@@ -75,7 +80,7 @@ export function Form() {
             )}
           </label>
         </div>
-        <fieldset className="query_field">
+        <fieldset className={styles.query_field}>
           <legend>
             Query Type <span>*</span>
           </legend>
@@ -109,10 +114,11 @@ export function Form() {
             <span>Please select a query type</span>
           )}
         </fieldset>
-        <div className="message_container">
+        <div>
           <label htmlFor="message">
             Message <span>*</span>
             <textarea
+              className={styles.text_area_field}
               name="message"
               id="message"
               value={message}
@@ -123,8 +129,9 @@ export function Form() {
             )}
           </label>
         </div>
-        <div className="consent_container">
+        <div>
           <input
+            className={styles.check_box_field}
             type="checkbox"
             name="consent"
             id="consent"
@@ -138,7 +145,9 @@ export function Form() {
             <span>To submit this form, please consent to being contacted</span>
           )}
         </div>
-        <button type="submit">Submit</button>
+        <button className={styles.button} type="submit">
+          Submit
+        </button>
       </form>
     </>
   );
