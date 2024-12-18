@@ -1,5 +1,10 @@
 import { useState } from "react";
 
+import { invalidInput } from "../util/validate";
+import { invalidEmail } from "../util/validate";
+import { invalidCheckBox } from "../util/validate";
+import { invalidRadioSelect } from "../util/validate";
+
 export function Form() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -7,10 +12,16 @@ export function Form() {
   const [isSelected, setIsSelected] = useState("");
   const [message, setMessage] = useState("");
   const [checkConsent, setCheckConsent] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
+  const onSubmit = (event) => {
+    event.preventDefault();
+    setIsSubmitted(true);
+  };
 
   return (
     <>
-      <form>
+      <form onSubmit={onSubmit}>
         <div className="name_container">
           <div className="first_name_container">
             <label htmlFor="firstName">
@@ -19,13 +30,15 @@ export function Form() {
                 type="text"
                 name="firstName"
                 id="firstName"
-                required={true}
                 maxLength={20}
                 value={firstName}
                 onChange={(event) => {
                   setFirstName(event.target.value);
                 }}
               />
+              {isSubmitted && invalidInput(firstName) && (
+                <span>This is field is required</span>
+              )}
             </label>
           </div>
           <div className="last_name_container">
@@ -35,13 +48,15 @@ export function Form() {
                 type="text"
                 name="lastName"
                 id="lastName"
-                required={true}
                 maxLength={20}
                 value={lastName}
                 onChange={(event) => {
                   setLastName(event.target.value);
                 }}
               />
+              {isSubmitted && invalidInput(lastName) && (
+                <span>This is field is required</span>
+              )}
             </label>
           </div>
         </div>
@@ -52,10 +67,12 @@ export function Form() {
               type="email"
               name="emailAddress"
               id="emailAddress"
-              required={true}
               value={email}
               onChange={(event) => setEmail(event.target.value)}
             />
+            {isSubmitted && invalidEmail(email) && (
+              <span>This is field is required</span>
+            )}
           </label>
         </div>
         <fieldset className="query_field">
@@ -68,7 +85,6 @@ export function Form() {
                 type="radio"
                 name="query_type"
                 id="generalEnquiry"
-                required={true}
                 value="general-enquiry"
                 checked={isSelected === "general-enquiry"}
                 onChange={(event) => setIsSelected(event.target.value)}
@@ -82,7 +98,6 @@ export function Form() {
                 type="radio"
                 name="query_type"
                 id="supportRequest"
-                required={true}
                 value="support-request"
                 checked={isSelected === "support-request"}
                 onChange={(event) => setIsSelected(event.target.value)}
@@ -90,6 +105,9 @@ export function Form() {
               Support Request
             </label>
           </div>
+          {isSubmitted && invalidRadioSelect(isSelected) && (
+            <span>Please select a query type</span>
+          )}
         </fieldset>
         <div className="message_container">
           <label htmlFor="message">
@@ -97,10 +115,12 @@ export function Form() {
             <textarea
               name="message"
               id="message"
-              required={true}
               value={message}
               onChange={(event) => setMessage(event.target.value)}
             ></textarea>
+            {isSubmitted && invalidInput(message) && (
+              <span>This is field is required</span>
+            )}
           </label>
         </div>
         <div className="consent_container">
@@ -108,22 +128,18 @@ export function Form() {
             type="checkbox"
             name="consent"
             id="consent"
-            required={true}
             checked={checkConsent}
             onChange={(event) => setCheckConsent(event.target.checked)}
           />
           <label htmlFor="consent">
             I consent to being contacted by the team <span>*</span>
           </label>
+          {isSubmitted && invalidCheckBox(checkConsent) && (
+            <span>To submit this form, please consent to being contacted</span>
+          )}
         </div>
         <button type="submit">Submit</button>
       </form>
-      <p>First Name {firstName}</p>
-      <p>Last Name {lastName}</p>
-      <p>Email {email}</p>
-      <p>Radio Button Selected {isSelected}</p>
-      <p>Message {message}</p>
-      <p>Consent {checkConsent.toString()}</p>
     </>
   );
 }
