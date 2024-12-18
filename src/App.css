@@ -30,8 +30,6 @@ body {
   font-family: "Karla";
   font-size: 1rem;
   font-size: clamp(1rem, 0.647887323943662rem + 1.5023474178403755vw, 2rem);
-}
-
-main {
-  background-color: var(--color-white);
+  padding-top: 2rem;
+  padding-bottom: 2rem;
 }
