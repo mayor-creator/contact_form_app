@@ -143,3 +143,20 @@ input[type="radio"]:checked::before {
 input:hover {
   border: 0.094rem solid var(--color-green600);
 }
+
+.radio_container_active {
+  background-color: var(--color-green200);
+}
+
+/* error state properties */
+.error {
+  color: var(--color-red);
+}
+
+.inputField_error {
+  border: 0.063rem solid var(--color-red);
+}
+
+.text_area_field_error {
+  border: 0.063rem solid var(--color-red);
+}
