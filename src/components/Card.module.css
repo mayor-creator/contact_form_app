@@ -1,7 +1,7 @@
 .card {
   background-color: var(--color-white);
   border-radius: 1rem;
-  width: min(100% - 2rem, 63rem);
+  width: min(100% - 2rem, 46rem);
   margin-inline: auto;
   padding: 1.5rem;
 }
