@@ -29,7 +29,11 @@ export function Form() {
             <label htmlFor="firstName">
               First Name <span className={styles.asterisk_required}>*</span>
               <input
-                className={styles.inputField}
+                className={`${styles.inputField} ${
+                  isSubmitted && invalidInput(firstName)
+                    ? ` ${styles.inputField_error}`
+                    : ""
+                }`}
                 type="text"
                 name="firstName"
                 id="firstName"
@@ -40,7 +44,7 @@ export function Form() {
                 }}
               />
               {isSubmitted && invalidInput(firstName) && (
-                <span>This is field is required</span>
+                <span className={styles.error}>This field is required</span>
               )}
             </label>
           </div>
@@ -48,7 +52,11 @@ export function Form() {
             <label htmlFor="lastName">
               Last Name <span className={styles.asterisk_required}>*</span>
               <input
-                className={styles.inputField}
+                className={`${styles.inputField} ${
+                  isSubmitted && invalidInput(lastName)
+                    ? ` ${styles.inputField_error}`
+                    : ""
+                }`}
                 type="text"
                 name="lastName"
                 id="lastName"
@@ -59,7 +67,7 @@ export function Form() {
                 }}
               />
               {isSubmitted && invalidInput(lastName) && (
-                <span>This is field is required</span>
+                <span className={styles.error}>This field is required</span>
               )}
             </label>
           </div>
@@ -68,7 +76,11 @@ export function Form() {
           <label htmlFor="emailAddress">
             Email Address <span className={styles.asterisk_required}>*</span>
             <input
-              className={styles.inputField}
+              className={`${styles.inputField} ${
+                isSubmitted && invalidEmail(email)
+                  ? ` ${styles.inputField_error}`
+                  : ""
+              }`}
               type="email"
               name="emailAddress"
               id="emailAddress"
@@ -76,7 +88,9 @@ export function Form() {
               onChange={(event) => setEmail(event.target.value)}
             />
             {isSubmitted && invalidEmail(email) && (
-              <span>This is field is required</span>
+              <span className={styles.error}>
+                Please enter a valid email address
+              </span>
             )}
           </label>
         </div>
@@ -84,7 +98,13 @@ export function Form() {
           <legend>
             Query Type <span className={styles.asterisk_required}>*</span>
           </legend>
-          <div className={styles.radio_container}>
+          <div
+            className={`${styles.radio_container} ${
+              isSelected === "general-enquiry"
+                ? `${styles.radio_container_active}`
+                : ""
+            }`}
+          >
             <label htmlFor="generalEnquiry" className={styles.radio_label}>
               <input
                 type="radio"
@@ -97,7 +117,13 @@ export function Form() {
               General Enquiry
             </label>
           </div>
-          <div className={styles.radio_container}>
+          <div
+            className={`${styles.radio_container} ${
+              isSelected === "support-request"
+                ? `${styles.radio_container_active}`
+                : ""
+            }`}
+          >
             <label htmlFor="supportRequest" className={styles.radio_label}>
               <input
                 type="radio"
@@ -111,21 +137,25 @@ export function Form() {
             </label>
           </div>
           {isSubmitted && invalidRadioSelect(isSelected) && (
-            <span>Please select a query type</span>
+            <span className={styles.error}>Please select a query type</span>
           )}
         </fieldset>
         <div>
           <label htmlFor="message">
             Message <span className={styles.asterisk_required}>*</span>
             <textarea
-              className={styles.text_area_field}
+              className={`${styles.text_area_field} ${
+                isSubmitted && invalidInput(message)
+                  ? ` ${styles.text_area_field_error}`
+                  : ""
+              }`}
               name="message"
               id="message"
               value={message}
               onChange={(event) => setMessage(event.target.value)}
             ></textarea>
             {isSubmitted && invalidInput(message) && (
-              <span>This is field is required</span>
+              <span className={styles.error}>This field is required</span>
             )}
           </label>
         </div>
@@ -143,7 +173,9 @@ export function Form() {
             <span className={styles.asterisk_required}>*</span>
           </label>
           {isSubmitted && invalidCheckBox(checkConsent) && (
-            <span>To submit this form, please consent to being contacted</span>
+            <span className={styles.error}>
+              To submit this form, please consent to being contacted
+            </span>
           )}
         </div>
         <button className={styles.button} type="submit">
