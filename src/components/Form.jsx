@@ -84,8 +84,8 @@ export function Form() {
           <legend>
             Query Type <span>*</span>
           </legend>
-          <div className="general_enquiry_container">
-            <label htmlFor="generalEnquiryRadio">
+          <div className={styles.radio_container}>
+            <label htmlFor="generalEnquiry" className={styles.radio_label}>
               <input
                 type="radio"
                 name="query_type"
@@ -97,8 +97,8 @@ export function Form() {
               General Enquiry
             </label>
           </div>
-          <div className="support_request_container">
-            <label htmlFor="supportRequestRadio">
+          <div className={styles.radio_container}>
+            <label htmlFor="supportRequest" className={styles.radio_label}>
               <input
                 type="radio"
                 name="query_type"
