@@ -27,7 +27,7 @@ export function Form() {
         <div className={styles.name_container}>
           <div>
             <label htmlFor="firstName">
-              First Name <span>*</span>
+              First Name <span className={styles.asterisk_required}>*</span>
               <input
                 className={styles.inputField}
                 type="text"
@@ -46,7 +46,7 @@ export function Form() {
           </div>
           <div>
             <label htmlFor="lastName">
-              Last Name <span>*</span>
+              Last Name <span className={styles.asterisk_required}>*</span>
               <input
                 className={styles.inputField}
                 type="text"
@@ -66,7 +66,7 @@ export function Form() {
         </div>
         <div>
           <label htmlFor="emailAddress">
-            Email Address <span>*</span>
+            Email Address <span className={styles.asterisk_required}>*</span>
             <input
               className={styles.inputField}
               type="email"
@@ -82,7 +82,7 @@ export function Form() {
         </div>
         <fieldset className={styles.query_field}>
           <legend>
-            Query Type <span>*</span>
+            Query Type <span className={styles.asterisk_required}>*</span>
           </legend>
           <div className={styles.radio_container}>
             <label htmlFor="generalEnquiry" className={styles.radio_label}>
@@ -116,7 +116,7 @@ export function Form() {
         </fieldset>
         <div>
           <label htmlFor="message">
-            Message <span>*</span>
+            Message <span className={styles.asterisk_required}>*</span>
             <textarea
               className={styles.text_area_field}
               name="message"
@@ -139,7 +139,8 @@ export function Form() {
             onChange={(event) => setCheckConsent(event.target.checked)}
           />
           <label htmlFor="consent">
-            I consent to being contacted by the team <span>*</span>
+            I consent to being contacted by the team{" "}
+            <span className={styles.asterisk_required}>*</span>
           </label>
           {isSubmitted && invalidCheckBox(checkConsent) && (
             <span>To submit this form, please consent to being contacted</span>
