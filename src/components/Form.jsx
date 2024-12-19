@@ -38,6 +38,7 @@ export function Form() {
                 name="firstName"
                 id="firstName"
                 maxLength={20}
+                aria-required={true}
                 value={firstName}
                 onChange={(event) => {
                   setFirstName(event.target.value);
@@ -62,6 +63,7 @@ export function Form() {
                 id="lastName"
                 maxLength={20}
                 value={lastName}
+                aria-required={true}
                 onChange={(event) => {
                   setLastName(event.target.value);
                 }}
@@ -84,6 +86,7 @@ export function Form() {
               type="email"
               name="emailAddress"
               id="emailAddress"
+              aria-required={true}
               value={email}
               onChange={(event) => setEmail(event.target.value)}
             />
@@ -110,6 +113,7 @@ export function Form() {
                 type="radio"
                 name="query_type"
                 id="generalEnquiry"
+                aria-required={true}
                 value="general-enquiry"
                 checked={isSelected === "general-enquiry"}
                 onChange={(event) => setIsSelected(event.target.value)}
@@ -129,6 +133,7 @@ export function Form() {
                 type="radio"
                 name="query_type"
                 id="supportRequest"
+                aria-required={true}
                 value="support-request"
                 checked={isSelected === "support-request"}
                 onChange={(event) => setIsSelected(event.target.value)}
@@ -151,6 +156,7 @@ export function Form() {
               }`}
               name="message"
               id="message"
+              aria-required={true}
               value={message}
               onChange={(event) => setMessage(event.target.value)}
             ></textarea>
@@ -165,6 +171,7 @@ export function Form() {
             type="checkbox"
             name="consent"
             id="consent"
+            aria-required={true}
             checked={checkConsent}
             onChange={(event) => setCheckConsent(event.target.checked)}
           />
