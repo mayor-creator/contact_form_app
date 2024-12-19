@@ -65,7 +65,7 @@ export function Form() {
           </div>
         </div>
         <div>
-          <label htmlFor="email_address">
+          <label htmlFor="emailAddress">
             Email Address <span>*</span>
             <input
               className={styles.inputField}
