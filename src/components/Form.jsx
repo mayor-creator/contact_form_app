@@ -166,19 +166,21 @@ export function Form() {
           </label>
         </div>
         <div>
-          <input
-            className={styles.check_box_field}
-            type="checkbox"
-            name="consent"
-            id="consent"
-            aria-required={true}
-            checked={checkConsent}
-            onChange={(event) => setCheckConsent(event.target.checked)}
-          />
-          <label htmlFor="consent">
-            I consent to being contacted by the team{" "}
-            <span className={styles.asterisk_required}>*</span>
-          </label>
+          <div className={styles.checkbox_container}>
+            <input
+              className={styles.check_box_field}
+              type="checkbox"
+              name="consent"
+              id="consent"
+              aria-required={true}
+              checked={checkConsent}
+              onChange={(event) => setCheckConsent(event.target.checked)}
+            />
+            <label htmlFor="consent" className={styles.checkbox_label}>
+              I consent to being contacted by the team{" "}
+              <span className={styles.asterisk_required}>*</span>
+            </label>
+          </div>
           {isSubmitted && invalidCheckBox(checkConsent) && (
             <span className={styles.error}>
               To submit this form, please consent to being contacted
