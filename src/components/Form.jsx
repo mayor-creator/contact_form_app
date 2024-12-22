@@ -97,54 +97,56 @@ export function Form() {
             )}
           </label>
         </div>
-        <fieldset className={styles.query_field}>
-          <legend>
-            Query Type <span className={styles.asterisk_required}>*</span>
-          </legend>
-          <div
-            className={`${styles.radio_container} ${
-              isSelected === "general-enquiry"
-                ? `${styles.radio_container_active}`
-                : ""
-            }`}
-          >
-            <label htmlFor="generalEnquiry" className={styles.radio_label}>
-              <input
-                type="radio"
-                name="query_type"
-                id="generalEnquiry"
-                aria-required={true}
-                value="general-enquiry"
-                checked={isSelected === "general-enquiry"}
-                onChange={(event) => setIsSelected(event.target.value)}
-              />{" "}
-              General Enquiry
-            </label>
-          </div>
-          <div
-            className={`${styles.radio_container} ${
-              isSelected === "support-request"
-                ? `${styles.radio_container_active}`
-                : ""
-            }`}
-          >
-            <label htmlFor="supportRequest" className={styles.radio_label}>
-              <input
-                type="radio"
-                name="query_type"
-                id="supportRequest"
-                aria-required={true}
-                value="support-request"
-                checked={isSelected === "support-request"}
-                onChange={(event) => setIsSelected(event.target.value)}
-              />{" "}
-              Support Request
-            </label>
-          </div>
+        <div>
+          <fieldset className={styles.query_field}>
+            <legend>
+              Query Type <span className={styles.asterisk_required}>*</span>
+            </legend>
+            <div
+              className={`${styles.radio_container} ${
+                isSelected === "general-enquiry"
+                  ? `${styles.radio_container_active}`
+                  : ""
+              }`}
+            >
+              <label htmlFor="generalEnquiry" className={styles.radio_label}>
+                <input
+                  type="radio"
+                  name="query_type"
+                  id="generalEnquiry"
+                  aria-required={true}
+                  value="general-enquiry"
+                  checked={isSelected === "general-enquiry"}
+                  onChange={(event) => setIsSelected(event.target.value)}
+                />{" "}
+                General Enquiry
+              </label>
+            </div>
+            <div
+              className={`${styles.radio_container} ${
+                isSelected === "support-request"
+                  ? `${styles.radio_container_active}`
+                  : ""
+              }`}
+            >
+              <label htmlFor="supportRequest" className={styles.radio_label}>
+                <input
+                  type="radio"
+                  name="query_type"
+                  id="supportRequest"
+                  aria-required={true}
+                  value="support-request"
+                  checked={isSelected === "support-request"}
+                  onChange={(event) => setIsSelected(event.target.value)}
+                />{" "}
+                Support Request
+              </label>
+            </div>
+          </fieldset>
           {isSubmitted && invalidRadioSelect(isSelected) && (
             <span className={styles.error}>Please select a query type</span>
           )}
-        </fieldset>
+        </div>
         <div>
           <label htmlFor="message">
             Message <span className={styles.asterisk_required}>*</span>
