@@ -9,6 +9,8 @@
   top: 3.125rem;
   left: 1.25rem;
   right: 1.25rem;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
 }
 
 .top_container {
@@ -23,6 +25,10 @@
 
 .message {
   font-size: 1rem;
+}
+
+.show {
+  opacity: 1;
 }
 
 @media (min-width: 48em) {
