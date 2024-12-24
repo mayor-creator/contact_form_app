@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+import { Toasts } from "./Toasts.jsx";
+
 import { invalidInput } from "../util/validate";
 import { invalidEmail } from "../util/validate";
 import { invalidCheckBox } from "../util/validate";
@@ -20,6 +22,14 @@ export function Form() {
     event.preventDefault();
     setIsSubmitted(true);
   };
+
+  const valid =
+    !invalidInput(firstName) &&
+    !invalidInput(lastName) &&
+    !invalidEmail(email) &&
+    !invalidRadioSelect(isSelected) &&
+    !invalidInput(message) &&
+    !invalidCheckBox(checkConsent);
 
   return (
     <>
@@ -193,6 +203,9 @@ export function Form() {
           Submit
         </button>
       </form>
+      {isSubmitted && valid && (
+        <Toasts message="Thank you for completing the form. We'll be in touch soon!" />
+      )}
     </>
   );
 }
