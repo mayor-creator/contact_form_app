@@ -155,7 +155,7 @@ input:hover {
 }
 
 .button:hover {
-  background-color: hsl(169, 93%, 14%); /* Adjust color for hover state */
+  background-color: hsl(169, 93%, 14%);
 }
 
 /* error state properties */
