@@ -31,6 +31,16 @@ export function Form() {
     !invalidInput(message) &&
     !invalidCheckBox(checkConsent);
 
+  const handleToastClose = () => {
+    setFirstName("");
+    setLastName("");
+    setEmail("");
+    setIsSelected("");
+    setMessage("");
+    setCheckConsent(false);
+    setIsSubmitted(false);
+  };
+
   return (
     <>
       <form onSubmit={onSubmit} className={styles.form_wrapper}>
@@ -204,7 +214,10 @@ export function Form() {
         </button>
       </form>
       {isSubmitted && valid && (
-        <Toasts message="Thank you for completing the form. We'll be in touch soon!" />
+        <Toasts
+          message="Thank you for completing the form. We'll be in touch soon!"
+          onClose={handleToastClose}
+        />
       )}
     </>
   );
