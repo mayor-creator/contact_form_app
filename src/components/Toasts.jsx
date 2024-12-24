@@ -4,16 +4,17 @@ import PropTypes from "prop-types";
 import checkIcon from "../assets/images/icon-success-check.svg";
 import styles from "./Toasts.module.css";
 
-export function Toasts({ message }) {
+export function Toasts({ message, onClose }) {
   const [show, setShow] = useState(true);
 
   useEffect(() => {
     const timeout = setTimeout(() => {
       setShow(false);
+      onClose();
     }, 3000);
 
     return () => clearTimeout(timeout);
-  }, []);
+  }, [onClose]);
 
   return (
     <div className={`${styles.container} ${show ? ` ${styles.show}` : ""}`}>
@@ -30,4 +31,5 @@ export function Toasts({ message }) {
 
 Toasts.propTypes = {
   message: PropTypes.string.isRequired,
+  onClose: PropTypes.func.isRequired,
 };
