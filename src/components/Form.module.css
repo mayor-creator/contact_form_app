@@ -1,3 +1,18 @@
+:root {
+  /* Form dimensions */
+  --input-height: 3.188rem;
+  --input-padding: 0.75rem;
+  --border-radius: 0.5rem;
+  --border-width: 0.063rem;
+  --border-width-hover: 0.094rem;
+
+  /* Transitions */
+  --transition-speed: 0.2s;
+  --transition-timing: ease-in-out;
+  --transition-props: border-color, background-color, transform;
+}
+
+/* Base form layout */
 .form_wrapper {
   display: flex;
   flex-direction: column;
@@ -10,18 +25,40 @@
   gap: 1.5rem;
 }
 
-.inputField {
+/* Input fields shared styles */
+.inputField,
+.text_area_field {
   cursor: pointer;
   display: block;
-  outline: none;
-  border-radius: 0.5rem;
-  border: 0.063rem solid var(--color-grey500);
-  padding: 0.75rem;
   width: 100%;
-  height: 3.188rem;
-  transition: var(--color-green600) 0.2s ease-in-out;
+  padding: var(--input-padding);
+  border: var(--border-width) solid var(--color-grey500);
+  border-radius: var(--border-radius);
+  outline: none;
+  transition: var(--transition-props) var(--transition-speed)
+    var(--transition-timing);
 }
 
+.inputField {
+  height: var(--input-height);
+}
+
+.text_area_field {
+  min-height: 3rem;
+  resize: vertical;
+  overflow-y: auto;
+}
+
+/* Focus states */
+.inputField:focus,
+.text_area_field:focus,
+.radio_container:focus-within,
+.check_box_field:focus {
+  border-color: var(--color-green600);
+  box-shadow: 0 0 0 2px rgba(0, 128, 0, 0.1);
+}
+
+/* Radio buttons */
 .query_field {
   border: none;
   display: flex;
@@ -29,69 +66,14 @@
   gap: 1.5rem;
 }
 
-.text_area_field {
-  cursor: pointer;
-  display: block;
-  outline: none;
-  border-radius: 0.5rem;
-  border: 0.063rem solid var(--color-grey500);
-  padding: 0.75rem;
-  width: 100%;
-  min-height: 3rem;
-  resize: vertical;
-  overflow-y: auto;
-  transition: var(--color-green600) 0.2s ease-in-out;
-}
-
-/*Checkbox element custom properties */
-.checkbox_container {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-.checkbox_label {
-  cursor: pointer;
-}
-
-.check_box_field {
-  cursor: pointer;
-  -webkit-appearance: none;
-  appearance: none;
-  background-color: var(--color-white);
-  width: 1.25rem;
-  height: 1.25rem;
-  border: 0.063rem solid var(--color-grey500);
-  vertical-align: middle;
-}
-
-.check_box_field:checked {
-  border: none;
-  background-image: url("../assets/images/icon-checkbox-check.svg");
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-}
-
-.button {
-  background-color: var(--color-green600);
-  border-radius: 0.5rem;
-  border: none;
-  cursor: pointer;
-  color: var(--color-white);
-  font-weight: bold;
-  width: 100%;
-  height: 3.75rem;
-  transition: background-color 0.2s ease-in-out;
-}
-
 .radio_container {
   cursor: pointer;
-  border: 0.063rem solid var(--color-grey500);
-  border-radius: 0.5rem;
-  max-width: 100%;
-  height: 3.188rem;
+  border: var(--border-width) solid var(--color-grey500);
+  border-radius: var(--border-radius);
+  height: var(--input-height);
   padding: 1rem;
+  transition: var(--transition-props) var(--transition-speed)
+    var(--transition-timing);
 }
 
 .radio_label {
@@ -101,6 +83,7 @@
   gap: 1em;
 }
 
+/* Custom radio button styling */
 input[type="radio"] {
   -webkit-appearance: none;
   appearance: none;
@@ -112,11 +95,8 @@ input[type="radio"] {
   border-radius: 50%;
   background-color: transparent;
   cursor: pointer;
-  transition: all 0.2s ease-in-out;
-}
-
-input[type="radio"]:checked {
-  border-color: var(--color-green600);
+  transition: var(--transition-props) var(--transition-speed)
+    var(--transition-timing);
 }
 
 input[type="radio"]::before {
@@ -126,52 +106,97 @@ input[type="radio"]::before {
   border-radius: 50%;
   background-color: var(--color-green600);
   transform: scale(0);
-  transition: all 0.2s ease-in-out;
+  transition: transform var(--transition-speed) var(--transition-timing);
 }
 
-input[type="radio"]:checked::before {
-  transform: scale(1);
+/* Checkbox styling */
+.checkbox_container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
 
-.asterisk_required {
-  color: var(--color-green600);
+.check_box_field {
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: var(--color-white);
+  width: 1.25rem;
+  height: 1.25rem;
+  border: var(--border-width) solid var(--color-grey500);
+  border-radius: 0.25rem;
+  transition: var(--transition-props) var(--transition-speed)
+    var(--transition-timing);
 }
 
-/* active state properties */
-.radio_container:hover {
-  border: 0.094rem solid var(--color-green600);
-}
-
-.text_area_field:hover {
-  border: 0.094rem solid var(--color-green600);
-}
-
+/* States */
+.radio_container:hover,
+.text_area_field:hover,
 input:hover {
-  border: 0.094rem solid var(--color-green600);
+  border: var(--border-width-hover) solid var(--color-green600);
 }
 
 .radio_container_active {
   background-color: var(--color-green200);
 }
 
+input[type="radio"]:checked {
+  border-color: var(--color-green600);
+}
+
+input[type="radio"]:checked::before {
+  transform: scale(1);
+}
+
+.check_box_field:checked {
+  border: none;
+  background-image: url("../assets/images/icon-checkbox-check.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* Error states */
+.error {
+  color: var(--color-red);
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+
+.inputField_error,
+.text_area_field_error {
+  border: var(--border-width) solid var(--color-red);
+  background-color: rgba(255, 0, 0, 0.02);
+}
+
+/* Submit button */
+.button {
+  background-color: var(--color-green600);
+  border-radius: var(--border-radius);
+  border: none;
+  color: var(--color-white);
+  cursor: pointer;
+  font-weight: bold;
+  height: 3.75rem;
+  width: 100%;
+  transition: background-color var(--transition-speed) var(--transition-timing);
+}
+
 .button:hover {
   background-color: hsl(169, 93%, 14%);
 }
 
-/* error state properties */
-.error {
-  color: var(--color-red);
+.button:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--color-green600);
 }
 
-.inputField_error {
-  border: 0.063rem solid var(--color-red);
+/* Required field indicator */
+.asterisk_required {
+  color: var(--color-green600);
 }
 
-.text_area_field_error {
-  border: 0.063rem solid var(--color-red);
-}
-
-/* media query properties */
+/* Responsive layout */
 @media (min-width: 48em) {
   .name_container,
   .query_field {
