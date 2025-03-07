@@ -1,27 +1,29 @@
 import { useState } from "react";
-
 import { Toasts } from "./Toasts.jsx";
-
-import { invalidInput } from "../util/validate";
-import { invalidEmail } from "../util/validate";
-import { invalidCheckBox } from "../util/validate";
-import { invalidRadioSelect } from "../util/validate";
-
+import {
+  invalidInput,
+  invalidEmail,
+  invalidCheckBox,
+  invalidRadioSelect,
+} from "../util/validate";
 import styles from "./Form.module.css";
 
 export function Form() {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [isSelected, setIsSelected] = useState("");
-  const [message, setMessage] = useState("");
-  const [checkConsent, setCheckConsent] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
-
-  const onSubmit = (event) => {
-    event.preventDefault();
-    setIsSubmitted(true);
+  const initialState = {
+    firstName: "",
+    lastName: "",
+    email: "",
+    isSelected: "",
+    message: "",
+    checkConsent: false,
   };
+
+  const [formData, setFormData] = useState(initialState);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [showToast, setShowToast] = useState(false);
+
+  const { firstName, lastName, email, isSelected, message, checkConsent } =
+    formData;
 
   const valid =
     !invalidInput(firstName) &&
@@ -32,13 +34,26 @@ export function Form() {
     !invalidCheckBox(checkConsent);
 
   const handleToastClose = () => {
-    setFirstName("");
-    setLastName("");
-    setEmail("");
-    setIsSelected("");
-    setMessage("");
-    setCheckConsent(false);
+    setFormData(initialState);
     setIsSubmitted(false);
+    setShowToast(false);
+  };
+
+  const handleInputChange = (event) => {
+    const { name, value, type, checked } = event.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: type === "checkbox" ? checked : value,
+    }));
+  };
+
+  const onSubmit = (event) => {
+    event.preventDefault();
+    setIsSubmitted(true);
+
+    if (valid) {
+      setShowToast(true);
+    }
   };
 
   return (
@@ -51,7 +66,7 @@ export function Form() {
               <input
                 className={`${styles.inputField} ${
                   isSubmitted && invalidInput(firstName)
-                    ? ` ${styles.inputField_error}`
+                    ? styles.inputField_error
                     : ""
                 }`}
                 type="text"
@@ -60,12 +75,12 @@ export function Form() {
                 maxLength={20}
                 aria-required={true}
                 value={firstName}
-                onChange={(event) => {
-                  setFirstName(event.target.value);
-                }}
+                onChange={handleInputChange}
               />
               {isSubmitted && invalidInput(firstName) && (
-                <span className={styles.error}>This field is required</span>
+                <span className={styles.error} role="alert">
+                  This field is required
+                </span>
               )}
             </label>
           </div>
@@ -75,21 +90,21 @@ export function Form() {
               <input
                 className={`${styles.inputField} ${
                   isSubmitted && invalidInput(lastName)
-                    ? ` ${styles.inputField_error}`
+                    ? styles.inputField_error
                     : ""
                 }`}
                 type="text"
                 name="lastName"
                 id="lastName"
                 maxLength={20}
-                value={lastName}
                 aria-required={true}
-                onChange={(event) => {
-                  setLastName(event.target.value);
-                }}
+                value={lastName}
+                onChange={handleInputChange}
               />
               {isSubmitted && invalidInput(lastName) && (
-                <span className={styles.error}>This field is required</span>
+                <span className={styles.error} role="alert">
+                  This field is required
+                </span>
               )}
             </label>
           </div>
@@ -100,18 +115,18 @@ export function Form() {
             <input
               className={`${styles.inputField} ${
                 isSubmitted && invalidEmail(email)
-                  ? ` ${styles.inputField_error}`
+                  ? styles.inputField_error
                   : ""
               }`}
               type="email"
-              name="emailAddress"
+              name="email"
               id="emailAddress"
               aria-required={true}
               value={email}
-              onChange={(event) => setEmail(event.target.value)}
+              onChange={handleInputChange}
             />
             {isSubmitted && invalidEmail(email) && (
-              <span className={styles.error}>
+              <span className={styles.error} role="alert">
                 Please enter a valid email address
               </span>
             )}
@@ -125,19 +140,19 @@ export function Form() {
             <div
               className={`${styles.radio_container} ${
                 isSelected === "general-enquiry"
-                  ? `${styles.radio_container_active}`
+                  ? styles.radio_container_active
                   : ""
               }`}
             >
               <label htmlFor="generalEnquiry" className={styles.radio_label}>
                 <input
                   type="radio"
-                  name="query_type"
+                  name="isSelected"
                   id="generalEnquiry"
                   aria-required={true}
                   value="general-enquiry"
                   checked={isSelected === "general-enquiry"}
-                  onChange={(event) => setIsSelected(event.target.value)}
+                  onChange={handleInputChange}
                 />{" "}
                 General Enquiry
               </label>
@@ -145,26 +160,28 @@ export function Form() {
             <div
               className={`${styles.radio_container} ${
                 isSelected === "support-request"
-                  ? `${styles.radio_container_active}`
+                  ? styles.radio_container_active
                   : ""
               }`}
             >
               <label htmlFor="supportRequest" className={styles.radio_label}>
                 <input
                   type="radio"
-                  name="query_type"
+                  name="isSelected"
                   id="supportRequest"
                   aria-required={true}
                   value="support-request"
                   checked={isSelected === "support-request"}
-                  onChange={(event) => setIsSelected(event.target.value)}
+                  onChange={handleInputChange}
                 />{" "}
                 Support Request
               </label>
             </div>
           </fieldset>
           {isSubmitted && invalidRadioSelect(isSelected) && (
-            <span className={styles.error}>Please select a query type</span>
+            <span className={styles.error} role="alert">
+              Please select a query type
+            </span>
           )}
         </div>
         <div>
@@ -173,17 +190,19 @@ export function Form() {
             <textarea
               className={`${styles.text_area_field} ${
                 isSubmitted && invalidInput(message)
-                  ? ` ${styles.text_area_field_error}`
+                  ? styles.text_area_field_error
                   : ""
               }`}
               name="message"
               id="message"
               aria-required={true}
               value={message}
-              onChange={(event) => setMessage(event.target.value)}
+              onChange={handleInputChange}
             ></textarea>
             {isSubmitted && invalidInput(message) && (
-              <span className={styles.error}>This field is required</span>
+              <span className={styles.error} role="alert">
+                This field is required
+              </span>
             )}
           </label>
         </div>
@@ -192,11 +211,11 @@ export function Form() {
             <input
               className={styles.check_box_field}
               type="checkbox"
-              name="consent"
+              name="checkConsent"
               id="consent"
               aria-required={true}
               checked={checkConsent}
-              onChange={(event) => setCheckConsent(event.target.checked)}
+              onChange={handleInputChange}
             />
             <label htmlFor="consent" className={styles.checkbox_label}>
               I consent to being contacted by the team{" "}
@@ -204,7 +223,7 @@ export function Form() {
             </label>
           </div>
           {isSubmitted && invalidCheckBox(checkConsent) && (
-            <span className={styles.error}>
+            <span className={styles.error} role="alert">
               To submit this form, please consent to being contacted
             </span>
           )}
@@ -213,7 +232,7 @@ export function Form() {
           Submit
         </button>
       </form>
-      {isSubmitted && valid && (
+      {showToast && valid && (
         <Toasts
           message="Thank you for completing the form. We'll be in touch soon!"
           onClose={handleToastClose}
