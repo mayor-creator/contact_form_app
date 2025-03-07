@@ -1,7 +1,43 @@
 .card {
+  width: min(100% - 2rem, 50rem);
+  margin-inline: auto;
+  padding: 2rem;
   background-color: var(--color-white);
   border-radius: 1rem;
-  width: min(100% - 2rem, 46rem);
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+}
+
+.card_content {
+  max-width: 40rem;
   margin-inline: auto;
-  padding: 1.5rem;
+}
+
+.title {
+  font-size: clamp(1.5rem, 5vw, 2rem);
+  font-weight: bold;
+  color: var(--color-grey900);
+  margin-bottom: 0.5rem;
+}
+
+.subtitle {
+  font-size: 1rem;
+  color: var(--color-grey600);
+  margin-bottom: 2rem;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .card {
+    animation: fadeIn 0.3s ease-in-out;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
