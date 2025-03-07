@@ -28,10 +28,12 @@ body {
   background-color: var(--color-green200);
   color: var(--color-grey900);
   font-family: "Karla";
-  font-size: 1rem;
-  font-size: clamp(1rem, 0.647887323943662rem + 1.5023474178403755vw, 2rem);
-  padding-top: 2rem;
-  padding-bottom: 2rem;
+  font-size: clamp(0.875rem, 0.8rem + 0.5vw, 1.125rem);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  padding-block: clamp(1rem, 2vw + 0.5rem, 2rem);
 }
 
 @media (min-width: 48em) {
